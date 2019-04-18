@@ -1,3 +1,4 @@
+using ddd;
 using NUnit.Framework;
 
 namespace Tests
@@ -7,6 +8,7 @@ namespace Tests
         [SetUp]
         public void Setup()
         {
+            Creneau creneau;
         }
 
         [Test]
