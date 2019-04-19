@@ -7,7 +7,7 @@ using System.Runtime;
 
 namespace Tests
 {
-    public class Tests
+    public class TestClassesMetier
     {
         public Creneau creneau1;
         public Creneau creneau2;

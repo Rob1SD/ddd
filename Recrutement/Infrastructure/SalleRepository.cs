@@ -7,7 +7,9 @@ namespace ddd
     {
         public IEnumerable<Salle> Collection => collection;
         private List<Salle> collection;
-        
+        public SalleRepository() {
+            this.collection = new List<Salle>();
+        }
         public bool Ajouter(Salle obj)
         {
             if (collection.Any(rec => rec.Equals(obj))) return false;
