@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ddd
 {
@@ -8,6 +10,7 @@ namespace ddd
         public Profil Profil { get; }
         public string Commentaire { get; }
         
+        private readonly List<Creneau> CreneauxIndisponibles;
 
         public Recruteur(Personne personne, Profil profil, string commentaire = "")
         {
@@ -16,15 +19,25 @@ namespace ddd
             Commentaire = commentaire;
         }
 
+        public void AjouterIndisponibilite(Creneau Indispo) {
+            this.CreneauxIndisponibles.Add(Indispo);
+        }
+
+
         public bool PeutTester(Candidat candidat)
         {
-            
-            return false;
+            if (this.Profil.Experience < candidat.Profil.Experience)
+                return false;
+
+            return candidat.Profil.Competences.All(x=>this.Profil.Competences.Contains(x));
         }
 
         public bool EstDisponible(Creneau creneauSouhaite)
         {
+            if (this.CreneauxIndisponibles.IndexOf(creneauSouhaite) < 0)
+                return true;
             return false;
+
         }
     }
 }

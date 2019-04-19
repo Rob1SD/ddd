@@ -54,7 +54,7 @@ namespace Tests
         }
 
         [Test]
-         public void assertThatRecruteurCannotTestCandidatIfNotMireExperienceThatCandidat()
+         public void assertThatRecruteurCannotTestCandidatIfNotMoreExperienceThatCandidat()
         {
             
             Personne recruteurPersonne = new Personne("Antoine", "Sauvignet");
@@ -69,5 +69,23 @@ namespace Tests
 
             Assert.False(recruteur.PeutTester(candidat));
         }
+
+         [Test]
+         public void assertThatRecruteurCanTestIfSameTechAndMoreExperience()
+        {
+            
+            Personne recruteurPersonne = new Personne("Antoine", "Sauvignet");
+            string[] recruteurCompetence = {".Net", "js", "C"};
+            Profil recruteurProfil = new Profil(new List<string>(recruteurCompetence) , 5);
+            Recruteur recruteur = new Recruteur(recruteurPersonne, recruteurProfil);
+
+            Personne candidatPersonne = new Personne("Robin", "Soldé");
+            string[] candidatCompetence = {"C", ".Net"};
+            Profil candidatProfil = new Profil(new List<string>(candidatCompetence), 5);
+            Candidat candidat = new Candidat(candidatPersonne, candidatProfil);
+
+            Assert.True(recruteur.PeutTester(candidat));
+        }
+
     }
 }
