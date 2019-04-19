@@ -150,6 +150,66 @@ namespace Tests
 
             Assert.False(recruteur.EstDisponible(Creneau));
         }
+         [Test]
+         public void assertThatSalleIsAvailableWhenNoCreneau()
+        {
+            
+           
+            Salle Salle = new Salle("A07", 0);
+
+            DateTime date = DateTime.Now;
+            Creneau Creneau = new Creneau(date, 10);
+
+            Assert.True(Salle.EstDisponible(Creneau));
+        }
+         [Test]
+         public void assertThatSalleHasCrenauxAfterAddedOne()
+        {
+            
+            Salle Salle = new Salle("A07", 0);
+
+            DateTime date = DateTime.Now;
+            Creneau Creneau = new Creneau(date, 10);
+
+            Assert.True(Salle.EstDisponible(Creneau));
+            bool ajoutCreneau = Salle.AjouterIndisponibilite(Creneau);
+
+            Assert.True(ajoutCreneau);
+        }
+         [Test]
+        public void assertThatSalleCantHaveTwiceSameCreneau()
+        {
+            
+            Salle Salle = new Salle("A07", 0);
+
+            DateTime date = DateTime.Now;
+            Creneau Creneau = new Creneau(date, 10);
+
+            
+            Salle.AjouterIndisponibilite(Creneau);
+            bool ajoutCreneau = Salle.AjouterIndisponibilite(Creneau);
+
+            Assert.False(ajoutCreneau);
+        }
+
+        [Test]
+        public void assertThatSalleIsNotAvailableIfTwiceSameCreneau()
+        {
+            
+            Salle Salle = new Salle("A07", 0);
+
+            DateTime date = DateTime.Now;
+            Creneau Creneau = new Creneau(date, 10);
+
+            
+            Salle.AjouterIndisponibilite(Creneau);
+            bool ajoutCreneau = Salle.AjouterIndisponibilite(Creneau);
+            
+            Salle.AjouterIndisponibilite(Creneau);
+            
+
+            Assert.False(Salle.EstDisponible(Creneau));
+        }
 
 
     }
