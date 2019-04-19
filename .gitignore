@@ -2,7 +2,9 @@
 
 */.idea
 .idea
-
+.vscode/*
+*/.vscode/*
+*/.vs/*
 # Executables
 *.exe
 *.out
