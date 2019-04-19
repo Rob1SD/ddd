@@ -17,7 +17,7 @@ namespace ddd
             this.candidat = candidat;
         }
 
-        public string Planifier()
+        public string Planifier(Creneau creneau, Candidat candidat)
         {
             //TODO
             return "Return un genre de ToString()";
@@ -33,6 +33,12 @@ namespace ddd
         {
             //TODO
             return raison;
+        }
+        
+        public DateTime Reporter(Creneau creneau)
+        {
+            //TODO: La date à laquelle le créneau est reporté
+            return new DateTime();
         }
     }
 }
