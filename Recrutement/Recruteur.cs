@@ -2,22 +2,29 @@ using System.Collections.Generic;
 
 namespace ddd
 {
-    public class Recruteur
+    public partial class Recruteur
     {
-        public string Nom { get; }
-        public string Prenom { get; }
+        public Personne Personne { get; }
+        public Profil Profil { get; }
         public string Commentaire { get; }
-        public uint Experience { get; }
-        public List<string> Competences { get; }
         
 
-        public Recruteur(string nom, string prenom, uint experience, List<string> competences, string commentaire = "")
+        public Recruteur(Personne personne, Profil profil, string commentaire = "")
         {
-            Nom = nom;
-            Prenom = prenom;
+            Personne = personne;
+            Profil = profil;
             Commentaire = commentaire;
-            Experience = experience;
-            Competences = competences;
+        }
+
+        public bool PeutTester(Candidat candidat)
+        {
+            
+            return false;
+        }
+
+        public bool EstDisponible(Creneau creneauSouhaite)
+        {
+            return false;
         }
     }
 }
