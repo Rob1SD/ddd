@@ -1,5 +1,6 @@
 using System;
 using System.Net.NetworkInformation;
+using System.Collections.Generic;
 
 namespace ddd
 {
@@ -8,12 +9,32 @@ namespace ddd
         public string Nom { get; }
         public int Etage { get; }
        
-        
+         private readonly List<Creneau> CreneauxIndisponibles;
 
         public Salle(string Nom, int Etage)
         {
             this.Nom = Nom;
             this.Etage = Etage;
+            CreneauxIndisponibles = new List<Creneau>();
+        }
+
+        public bool AjouterIndisponibilite(Creneau Indispo) {
+            if (!this.EstDisponible(Indispo))
+                return false;
+            
+            this.CreneauxIndisponibles.Add(Indispo);
+
+            if (this.CreneauxIndisponibles.IndexOf(Indispo) >= 0)
+                return true;
+            
+            return false;
+        }
+        public bool EstDisponible(Creneau creneauSouhaite)
+        {
+            if (this.CreneauxIndisponibles.IndexOf(creneauSouhaite) < 0)
+                return true;
+            return false;
+
         }
 
         public bool Equals(Salle other)

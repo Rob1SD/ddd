@@ -17,10 +17,19 @@ namespace ddd
             Personne = personne;
             Profil = profil;
             Commentaire = commentaire;
+            CreneauxIndisponibles = new List<Creneau>();
         }
 
-        public void AjouterIndisponibilite(Creneau Indispo) {
+        public bool AjouterIndisponibilite(Creneau Indispo) {
+            if (!this.EstDisponible(Indispo))
+                return false;
+            
             this.CreneauxIndisponibles.Add(Indispo);
+
+            if (this.CreneauxIndisponibles.IndexOf(Indispo) >= 0)
+                return true;
+            
+            return false;
         }
 
 

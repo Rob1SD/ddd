@@ -86,6 +86,71 @@ namespace Tests
 
             Assert.True(recruteur.PeutTester(candidat));
         }
+         [Test]
+         public void assertThatRecruteurIsAvailableWhenNoCreneau()
+        {
+            
+            Personne recruteurPersonne = new Personne("Antoine", "Sauvignet");
+            string[] recruteurCompetence = {".Net", "js", "C"};
+            Profil recruteurProfil = new Profil(new List<string>(recruteurCompetence) , 5);
+            Recruteur recruteur = new Recruteur(recruteurPersonne, recruteurProfil);
+
+            DateTime date = DateTime.Now;
+            Creneau Creneau = new Creneau(date, 10);
+
+            Assert.True(recruteur.EstDisponible(Creneau));
+        }
+         [Test]
+         public void assertThatRecruteurHasCrenauxAfterAddedOne()
+        {
+            
+            Personne recruteurPersonne = new Personne("Antoine", "Sauvignet");
+            string[] recruteurCompetence = {".Net", "js", "C"};
+            Profil recruteurProfil = new Profil(new List<string>(recruteurCompetence) , 5);
+            Recruteur recruteur = new Recruteur(recruteurPersonne, recruteurProfil);
+
+            DateTime date = DateTime.Now;
+            Creneau Creneau = new Creneau(date, 10);
+            bool ajoutCreneau = recruteur.AjouterIndisponibilite(Creneau);
+
+            Assert.True(ajoutCreneau);
+        }
+         [Test]
+        public void assertThatRecruteurCantHaveTwiceSameCreneau()
+        {
+            
+            Personne recruteurPersonne = new Personne("Antoine", "Sauvignet");
+            string[] recruteurCompetence = {".Net", "js", "C"};
+            Profil recruteurProfil = new Profil(new List<string>(recruteurCompetence) , 5);
+            Recruteur recruteur = new Recruteur(recruteurPersonne, recruteurProfil);
+
+            DateTime date = DateTime.Now;
+            Creneau Creneau = new Creneau(date, 10);
+            
+            recruteur.AjouterIndisponibilite(Creneau);
+            bool ajoutCreneau = recruteur.AjouterIndisponibilite(Creneau);
+
+            Assert.False(ajoutCreneau);
+        }
+
+        [Test]
+        public void assertThatRecruteurIsNotAvailableIfTwiceSameCreneau()
+        {
+            
+            Personne recruteurPersonne = new Personne("Antoine", "Sauvignet");
+            string[] recruteurCompetence = {".Net", "js", "C"};
+            Profil recruteurProfil = new Profil(new List<string>(recruteurCompetence) , 5);
+            Recruteur recruteur = new Recruteur(recruteurPersonne, recruteurProfil);
+
+            DateTime date = DateTime.Now;
+            Creneau Creneau = new Creneau(date, 10);
+            
+            recruteur.AjouterIndisponibilite(Creneau);
+            
+
+            Assert.False(recruteur.EstDisponible(Creneau));
+        }
+
 
     }
 }
