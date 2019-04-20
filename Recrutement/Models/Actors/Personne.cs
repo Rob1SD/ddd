@@ -5,7 +5,7 @@ namespace ddd
         public string Nom { get; }
         public string Prenom { get; }
 
-        public Personne(string Nom, string Prenom) {
+        public Personne(string Prenom, string Nom) {
         this.Nom = Nom;
         this.Prenom = Prenom;
         }

@@ -6,8 +6,8 @@ namespace ddd
         public Profil Profil { get; }
         public Candidat(Personne personne, Profil profil)
         {
-            this.Personne = personne;
-            this.Profil = profil;
+            Personne = personne;
+            Profil = profil;
         }
     }
 }

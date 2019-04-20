@@ -18,25 +18,28 @@ namespace ddd.UseCases
 
         public PlanifierEntretien(SalleRepository salleRepo, RecruteurRepository recruteurRepo, Candidat Candidat, DateTime DateTime, int Duree)
         {
-            this.SalleRepository = salleRepo;
-            this.RecruteurRepository = recruteurRepo;
+            SalleRepository = salleRepo;
+            RecruteurRepository = recruteurRepo;
             this.Candidat = Candidat;
-            this.Creneau = new Creneau(DateTime, Duree);
+            Creneau = new Creneau(DateTime, Duree);
 
-            this.Recruteur = this.GetRecruteurValide();
+            Recruteur = GetRecruteurValide();
+            if(Recruteur == null) throw new Exception("Aucun Recruteur Disponible !");
             
-            this.Salle = GetSalleDisponible();
+            Salle = GetSalleDisponible();
+            if(Salle == null) throw  new Exception("Aucune salle disponible !");
 
         }
         private Salle GetSalleDisponible()
         {
-            return this.SalleRepository.Collection.First(salle => salle.EstDisponible(this.Creneau));
+            return SalleRepository.Collection.First(salle => salle.EstDisponible(Creneau));
         }
 
         private Recruteur GetRecruteurValide()
         {
-            return this.RecruteurRepository.Collection.FirstOrDefault(recruteur => recruteur.PeutTester(this.Candidat)
-                && recruteur.EstDisponible(this.Creneau));
+            var recruteurs = RecruteurRepository.Collection.Where(recruteur => recruteur.PeutTester(Candidat));
+            var premierRecruteurDispo = recruteurs.FirstOrDefault(rec => rec.EstDisponible(Creneau));
+            return premierRecruteurDispo;
         }
     }
  

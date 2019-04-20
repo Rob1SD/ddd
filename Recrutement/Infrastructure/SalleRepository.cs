@@ -8,7 +8,7 @@ namespace ddd
         public IEnumerable<Salle> Collection => collection;
         private List<Salle> collection;
         public SalleRepository() {
-            this.collection = new List<Salle>();
+            collection = new List<Salle>();
         }
         public bool Ajouter(Salle obj)
         {

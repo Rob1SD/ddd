@@ -19,19 +19,22 @@ namespace Tests
            RecruteurRepository = new RecruteurRepository();
            
             RecruteurRepository.Ajouter(new Recruteur(new Personne("Antoine", "Sauvignet"),
-            new Profil(new List<string>(new string[] { ".Net"}), 10)));
+            new Profil(new List<string>(){ ".Net"}, 10)));
 
             RecruteurRepository.Ajouter(new Recruteur(new Personne("Daouda", "BANGOURA"),
-            new Profil(new List<string>(new string[] { "Android"}), 2)));
+            new Profil(new List<string>(){ "Android"}, 2)));
 
             RecruteurRepository.Ajouter(new Recruteur(new Personne("Julien", "Lamby"),
-            new Profil(new List<string>(new string[] { "AGILE" }), 5)));
+            new Profil(new List<string>(){ "AGILE" }, 5)));
 
             RecruteurRepository.Ajouter(new Recruteur(new Personne("Benoît", "GOEPFERT"),
-            new Profil(new List<string>(new string[] { "JAVA", "PHP", "FRONT" }), 4)));
+            new Profil(new List<string>(){ "JAVA", "PHP", "FRONT" }, 4)));
 
             RecruteurRepository.Ajouter(new Recruteur(new Personne("Adel Mahfoud", "CHEBBINE"),
-            new Profil(new List<string>(new string[] { "JAVA", "Angular"}), 5)));
+            new Profil(new List<string>(){ "JAVA", "Angular"}, 5)));
+            
+            RecruteurRepository.Ajouter(new Recruteur(new Personne("jean", "BANGOURA"),
+                new Profil(new List<string>(){"Android", "Ruby", "F#"}, 2)));
 
             SalleRepository = new SalleRepository();
             SalleRepository.Ajouter(new Salle("A07", 0));
@@ -44,7 +47,7 @@ namespace Tests
 
         
         [Test]
-        public void assertThatDaoudaIsAndroidRecruteur()
+        public void JeanBANGOURAWillBeChosenToInterviewRobin()
         {
             Personne candidatPersonne = new Personne("Robin", "Soldé");
             string[] candidatCompetence = {"Android", "Ruby"};
@@ -57,7 +60,8 @@ namespace Tests
             PlanifierEntretien PlanifierEntretien = new PlanifierEntretien(this.SalleRepository,
                 this.RecruteurRepository, Candidat, DateTime, Duree);
             
-            Assert.Equals("Daouda", PlanifierEntretien.Recruteur.Personne.Nom);
+            Assert.AreEqual("BANGOURA", PlanifierEntretien.Recruteur.Personne.Nom);
+            Assert.AreEqual("jean", PlanifierEntretien.Recruteur.Personne.Prenom);
         }
 
 

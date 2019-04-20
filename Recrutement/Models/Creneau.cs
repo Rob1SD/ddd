@@ -17,18 +17,15 @@ namespace ddd
             HeureFin = Date.AddMinutes(duree).ToLongTimeString();
         }
 
-        public bool Equals(Creneau other)
-        {
-            if (ReferenceEquals(null, other)) return false;
-            if (ReferenceEquals(this, other)) return true;
-            return Date.Equals(other.Date) && string.Equals(HeureDebut, other.HeureDebut) && string.Equals(HeureFin, other.HeureFin);
-        }
+        public bool Equals(Creneau other) => Date.Equals(other.Date) 
+                                             && string.Equals(HeureDebut, other.HeureDebut) 
+                                             && string.Equals(HeureFin, other.HeureFin);
 
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != this.GetType()) return false;
+            if (obj.GetType() != GetType()) return false;
             return Equals((Creneau) obj);
         }
 

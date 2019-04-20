@@ -19,19 +19,19 @@ namespace ddd
         }
 
         public bool AjouterIndisponibilite(Creneau Indispo) {
-            if (!this.EstDisponible(Indispo))
+            if (!EstDisponible(Indispo))
                 return false;
             
-            this.CreneauxIndisponibles.Add(Indispo);
+            CreneauxIndisponibles.Add(Indispo);
 
-            if (this.CreneauxIndisponibles.IndexOf(Indispo) >= 0)
+            if (CreneauxIndisponibles.IndexOf(Indispo) >= 0)
                 return true;
             
             return false;
         }
         public bool EstDisponible(Creneau creneauSouhaite)
         {
-            if (this.CreneauxIndisponibles.IndexOf(creneauSouhaite) < 0)
+            if (CreneauxIndisponibles.IndexOf(creneauSouhaite) < 0)
                 return true;
             return false;
 
@@ -41,14 +41,14 @@ namespace ddd
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return string.Equals(Nom, other.Nom) && int.Equals(Etage, other.Etage);
+            return string.Equals(Nom, other.Nom) && Equals(Etage, other.Etage);
         }
 
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != this.GetType()) return false;
+            if (obj.GetType() != GetType()) return false;
             return Equals((Salle) obj);
         }
 

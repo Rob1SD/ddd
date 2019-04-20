@@ -10,43 +10,33 @@ namespace ddd
         public Profil Profil { get; }
         public string Commentaire { get; }
         
-        private readonly List<Creneau> CreneauxIndisponibles;
+        private readonly List<Creneau> _creneauxIndisponibles;
 
         public Recruteur(Personne personne, Profil profil, string commentaire = "")
         {
             Personne = personne;
             Profil = profil;
             Commentaire = commentaire;
-            CreneauxIndisponibles = new List<Creneau>();
+            _creneauxIndisponibles = new List<Creneau>();
         }
 
         public bool AjouterIndisponibilite(Creneau Indispo) {
-            if (!this.EstDisponible(Indispo))
+            if (!EstDisponible(Indispo))
                 return false;
-            
-            this.CreneauxIndisponibles.Add(Indispo);
-
-            if (this.CreneauxIndisponibles.IndexOf(Indispo) >= 0)
-                return true;
-            
-            return false;
+            _creneauxIndisponibles.Add(Indispo);
+            return _creneauxIndisponibles.IndexOf(Indispo) >= 0;
         }
 
 
         public bool PeutTester(Candidat candidat)
         {
-            if (this.Profil.Experience < candidat.Profil.Experience)
-                return false;
-
-            return candidat.Profil.Competences.All(x=>this.Profil.Competences.Contains(x));
+            return Profil.Experience >= candidat.Profil.Experience 
+                   && candidat.Profil.Competences.All(x=>Profil.Competences.Contains(x));
         }
 
         public bool EstDisponible(Creneau creneauSouhaite)
         {
-            if (this.CreneauxIndisponibles.IndexOf(creneauSouhaite) < 0)
-                return true;
-            return false;
-
+            return !_creneauxIndisponibles.Any(x => x.Equals(creneauSouhaite));
         }
     }
 }
