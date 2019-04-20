@@ -16,20 +16,21 @@ namespace ddd.UseCases
         public Creneau Creneau { get; set; }
         
 
-        public PlanifierEntretien(SalleRepository salleRepo, RecruteurRepository recruteurRepo, Candidat Candidat, DateTime DateTime, int Duree)
+        public PlanifierEntretien(SalleRepository salleRepo, RecruteurRepository recruteurRepo, Candidat Candidat, Creneau creneau)
         {
             SalleRepository = salleRepo;
             RecruteurRepository = recruteurRepo;
             this.Candidat = Candidat;
-            Creneau = new Creneau(DateTime, Duree);
+            Creneau = creneau;
 
             Recruteur = GetRecruteurValide();
-            if(Recruteur == null) throw new Exception("Aucun Recruteur Disponible !");
+            if(Recruteur == null) throw new NullReferenceException("Aucun Recruteur Disponible !");
             
             Salle = GetSalleDisponible();
-            if(Salle == null) throw  new Exception("Aucune salle disponible !");
+            if(Salle == null) throw  new NullReferenceException("Aucune salle disponible !");
 
         }
+        
         private Salle GetSalleDisponible()
         {
             return SalleRepository.Collection.First(salle => salle.EstDisponible(Creneau));

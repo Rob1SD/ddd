@@ -5,21 +5,27 @@ namespace ddd
 {
     public class Creneau : IEquatable<Creneau>
     {
-        public DateTime Date { get; }
-        public string HeureDebut { get; }
-        public string HeureFin { get; }
+        public DateTime DateDebut { get; }
+        public DateTime DateFin { get; }
         
 
-        public Creneau(DateTime Date, int duree)
+        public Creneau(DateTime dateDebut, int dureeMinutes)
         {
-            this.Date = Date;
-            HeureDebut = Date.ToLongTimeString();
-            HeureFin = Date.AddMinutes(duree).ToLongTimeString();
+            DateDebut = dateDebut;
+            DateFin = dateDebut.AddMinutes(dureeMinutes);
+        }
+        
+        public Creneau(DateTime dateDebut, TimeSpan duree)
+        {
+            DateDebut = dateDebut;
+            DateFin = dateDebut.Add(duree);
         }
 
-        public bool Equals(Creneau other) => Date.Equals(other.Date) 
-                                             && string.Equals(HeureDebut, other.HeureDebut) 
-                                             && string.Equals(HeureFin, other.HeureFin);
+        public bool SeChevauche(Creneau creneau) => !(DateFin.CompareTo(creneau.DateDebut) < 0 
+                                                      || DateDebut.CompareTo(creneau.DateFin) >= 0);
+
+        public bool Equals(Creneau other) => DateDebut.Equals(other.DateDebut) 
+                                             && DateFin.Equals(other.DateFin);
 
         public override bool Equals(object obj)
         {
@@ -31,13 +37,8 @@ namespace ddd
 
         public override int GetHashCode()
         {
-            unchecked
-            {
-                var hashCode = Date.GetHashCode();
-                hashCode = (hashCode * 397) ^ (HeureDebut != null ? HeureDebut.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (HeureFin != null ? HeureFin.GetHashCode() : 0);
-                return hashCode;
-            }
+            var hashCode = DateDebut.GetHashCode();
+            return hashCode;
         }
     }
 }

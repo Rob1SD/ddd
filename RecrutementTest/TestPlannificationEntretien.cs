@@ -2,6 +2,7 @@ using ddd;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime;
 using ddd.UseCases;
 
@@ -53,18 +54,40 @@ namespace Tests
             string[] candidatCompetence = {"Android", "Ruby"};
             Profil candidatProfil = new Profil(new List<string>(candidatCompetence), 1);
             Candidat Candidat = new Candidat(candidatPersonne, candidatProfil);
-            DateTime DateTime = DateTime.Now;
+            DateTime DateTime = new DateTime(2019,4,21,10,30,0);
             int Duree = 10;
 
 
             PlanifierEntretien PlanifierEntretien = new PlanifierEntretien(this.SalleRepository,
-                this.RecruteurRepository, Candidat, DateTime, Duree);
+                this.RecruteurRepository, Candidat, new Creneau(DateTime, Duree));
             
             Assert.AreEqual("BANGOURA", PlanifierEntretien.Recruteur.Personne.Nom);
             Assert.AreEqual("jean", PlanifierEntretien.Recruteur.Personne.Prenom);
         }
 
+        [Test]
+        public void JeanBangouraIsSuitedButNotAvailableToInterviewRobin()
+        {
+            var candidatPersonne = new Personne("Robin", "Soldé");
+            string[] candidatCompetence = {"Android", "Ruby"};
+            var candidatProfil = new Profil(new List<string>(candidatCompetence), 1);
+            var Candidat = new Candidat(candidatPersonne, candidatProfil);
+            var DateTime = new DateTime(2019,4,21,10,30,0);
+            const int duree = 10;
+            
+            var indispoRecrut = new DateTime(2019,4,21,10,15,0);
+            var Crenindispo = new Creneau(indispoRecrut, 60);
 
+            var jeanBangoura = this.RecruteurRepository.Collection.First(x => x.Personne.Prenom == "jean"
+                                                                              && x.Personne.Nom == "BANGOURA");
+            jeanBangoura.AjouterIndisponibilite(Crenindispo);
+
+            Assert.Throws<NullReferenceException>(() =>
+            {
+                var PlanifierEntretien = new PlanifierEntretien(this.SalleRepository,
+                    this.RecruteurRepository, Candidat, new Creneau(DateTime, duree));
+            });
+        }
         
     }
 }

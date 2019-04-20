@@ -27,6 +27,8 @@ namespace ddd
             return _creneauxIndisponibles.IndexOf(Indispo) >= 0;
         }
 
+        public bool SupprimerIndisponibilite(Creneau indispo) => _creneauxIndisponibles.Remove(indispo);
+
 
         public bool PeutTester(Candidat candidat)
         {
@@ -36,7 +38,8 @@ namespace ddd
 
         public bool EstDisponible(Creneau creneauSouhaite)
         {
-            return !_creneauxIndisponibles.Any(x => x.Equals(creneauSouhaite));
+            return !_creneauxIndisponibles.Any(x => x.Equals(creneauSouhaite) 
+                                                    || x.SeChevauche(creneauSouhaite));
         }
     }
 }
