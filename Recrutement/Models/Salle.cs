@@ -1,37 +1,36 @@
 using System;
-using System.Net.NetworkInformation;
 using System.Collections.Generic;
 
-namespace ddd
+namespace Recrutement.Models
 {
     public class Salle : IEquatable<Salle>
     {
         public string Nom { get; }
         public int Etage { get; }
        
-         private readonly List<Creneau> CreneauxIndisponibles;
+         private readonly List<Creneau> _creneauxIndisponibles;
 
-        public Salle(string Nom, int Etage)
+        public Salle(string nom, int etage)
         {
-            this.Nom = Nom;
-            this.Etage = Etage;
-            CreneauxIndisponibles = new List<Creneau>();
+            this.Nom = nom;
+            this.Etage = etage;
+            _creneauxIndisponibles = new List<Creneau>();
         }
 
-        public bool AjouterIndisponibilite(Creneau Indispo) {
-            if (!EstDisponible(Indispo))
+        public bool AjouterIndisponibilite(Creneau indispo) {
+            if (!EstDisponible(indispo))
                 return false;
             
-            CreneauxIndisponibles.Add(Indispo);
+            _creneauxIndisponibles.Add(indispo);
 
-            if (CreneauxIndisponibles.IndexOf(Indispo) >= 0)
+            if (_creneauxIndisponibles.IndexOf(indispo) >= 0)
                 return true;
             
             return false;
         }
         public bool EstDisponible(Creneau creneauSouhaite)
         {
-            if (CreneauxIndisponibles.IndexOf(creneauSouhaite) < 0)
+            if (_creneauxIndisponibles.IndexOf(creneauSouhaite) < 0)
                 return true;
             return false;
 

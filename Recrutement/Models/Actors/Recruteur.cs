@@ -1,8 +1,7 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ddd
+namespace Recrutement.Models.Actors
 {
     public partial class Recruteur
     {
@@ -20,11 +19,11 @@ namespace ddd
             _creneauxIndisponibles = new List<Creneau>();
         }
 
-        public bool AjouterIndisponibilite(Creneau Indispo) {
-            if (!EstDisponible(Indispo))
+        public bool AjouterIndisponibilite(Creneau indispo) {
+            if (!EstDisponible(indispo))
                 return false;
-            _creneauxIndisponibles.Add(Indispo);
-            return _creneauxIndisponibles.IndexOf(Indispo) >= 0;
+            _creneauxIndisponibles.Add(indispo);
+            return _creneauxIndisponibles.IndexOf(indispo) >= 0;
         }
 
         public bool SupprimerIndisponibilite(Creneau indispo) => _creneauxIndisponibles.Remove(indispo);

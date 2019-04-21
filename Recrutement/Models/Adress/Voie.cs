@@ -1,4 +1,4 @@
-namespace ddd
+namespace Recrutement.Models.Adress
 {
     public class Voie
     {

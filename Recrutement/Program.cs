@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ddd
+namespace Recrutement
 {
     class Program
     {

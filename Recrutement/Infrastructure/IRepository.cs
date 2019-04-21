@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace ddd
+namespace Recrutement.Infrastructure
 {
     public interface IRepository<T>
     {

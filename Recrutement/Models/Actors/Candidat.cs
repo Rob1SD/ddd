@@ -1,4 +1,4 @@
-namespace ddd
+namespace Recrutement.Models.Actors
 {
     public class Candidat
     {

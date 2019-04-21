@@ -1,7 +1,10 @@
 using System;
 using System.Linq;
+using Recrutement.Infrastructure;
+using Recrutement.Models;
+using Recrutement.Models.Actors;
 
-namespace ddd.UseCases
+namespace Recrutement.UseCases
 {
     public class PlanifierEntretien
     {
@@ -16,18 +19,18 @@ namespace ddd.UseCases
         public Creneau Creneau { get; set; }
         
 
-        public PlanifierEntretien(SalleRepository salleRepo, RecruteurRepository recruteurRepo, Candidat Candidat, Creneau creneau)
+        public PlanifierEntretien(SalleRepository salleRepo, RecruteurRepository recruteurRepo, Candidat candidat, Creneau creneau)
         {
             SalleRepository = salleRepo;
             RecruteurRepository = recruteurRepo;
-            this.Candidat = Candidat;
+            this.Candidat = candidat;
             Creneau = creneau;
 
             Recruteur = GetRecruteurValide();
-            if(Recruteur == null) throw new NullReferenceException("Aucun Recruteur Disponible !");
+            if(Recruteur == null) throw new RecruteurNotFoundException("Aucun Recruteur Disponible !");
             
             Salle = GetSalleDisponible();
-            if(Salle == null) throw  new NullReferenceException("Aucune salle disponible !");
+            if(Salle == null) throw  new SalleNotFoundException("Aucune salle disponible !");
 
         }
         

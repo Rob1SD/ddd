@@ -1,14 +1,14 @@
-namespace ddd
+namespace Recrutement.Models.Adress
 {
     public class Ville
     {
         public string Nom { get; }
         public string CodePostal { get; }
 
-        public Ville(string Nom, string CodePostal)
+        public Ville(string nom, string codePostal)
         {
-            this.Nom = Nom;
-            this.CodePostal = CodePostal;
+            this.Nom = nom;
+            this.CodePostal = codePostal;
         }
     }
 }

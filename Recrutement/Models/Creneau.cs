@@ -1,7 +1,6 @@
 using System;
-using System.Net.NetworkInformation;
 
-namespace ddd
+namespace Recrutement.Models
 {
     public class Creneau : IEquatable<Creneau>
     {

@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
+using Recrutement.Models.Actors;
 
-namespace ddd
+namespace Recrutement.Infrastructure
 {
     public class RecruteurRepository : IRepository<Recruteur>
     {

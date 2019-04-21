@@ -1,16 +1,15 @@
-using ddd;
-using NUnit.Framework;
 using System;
 using System.Collections.Generic;
-using System.Runtime;
+using NUnit.Framework;
+using Recrutement.Models;
+using Recrutement.Models.Actors;
 
-
-namespace Tests
+namespace RecrutementTest
 {
     public class TestClassesMetier
     {
-        public Creneau creneau1;
-        public Creneau creneau2;
+        private Creneau _creneau1;
+        private Creneau _creneau2;
 
         [SetUp]
         public void Setup()
@@ -20,26 +19,26 @@ namespace Tests
 
 
         [Test]
-        public void assertTwoCreneauEqualsAreEquals()
+        public void AssertTwoCreneauEqualsAreEquals()
         {
             DateTime dateTime = DateTime.Now;
             var duration = 10;
-            creneau1 = new Creneau(dateTime, duration);
-            creneau2 = new Creneau(dateTime, duration);
-            Assert.True(creneau1.Equals(creneau2));
+            _creneau1 = new Creneau(dateTime, duration);
+            _creneau2 = new Creneau(dateTime, duration);
+            Assert.True(_creneau1.Equals(_creneau2));
         }
         
         [Test]
-        public void assertTwoCreneauNotEqualsAreNotEquals()
+        public void AssertTwoCreneauNotEqualsAreNotEquals()
         {
             var duration = 10;
-            creneau1 = new Creneau(DateTime.Now, duration);
-            creneau2 = new Creneau(DateTime.Now, duration);
-            Assert.False(creneau1.Equals(creneau2));
+            _creneau1 = new Creneau(DateTime.Now, duration);
+            _creneau2 = new Creneau(DateTime.Now, duration);
+            Assert.False(_creneau1.Equals(_creneau2));
         }
         
         [Test]
-        public void assertThatRecruteurCannotTestCandidatIfDifferentTech()
+        public void AssertThatRecruteurCannotTestCandidatIfDifferentTech()
         {
             Personne recruteurPersonne = new Personne("Antoine", "Sauvignet");
             string[] recruteurCompetence = {".Net", "js"};
@@ -55,7 +54,7 @@ namespace Tests
         }
 
         [Test]
-         public void assertThatRecruteurCannotTestCandidatIfNotMoreExperienceThatCandidat()
+         public void AssertThatRecruteurCannotTestCandidatIfNotMoreExperienceThatCandidat()
         {
             Personne recruteurPersonne = new Personne("Antoine", "Sauvignet");
             string[] recruteurCompetence = {".Net", "js"};
@@ -71,7 +70,7 @@ namespace Tests
         }
 
          [Test]
-         public void assertThatRecruteurCanTestIfSameTechAndMoreExperience()
+         public void AssertThatRecruteurCanTestIfSameTechAndMoreExperience()
         {
             Personne recruteurPersonne = new Personne("Antoine", "Sauvignet");
             string[] recruteurCompetence = {".Net", "js", "C"};
@@ -87,7 +86,7 @@ namespace Tests
         }
          
          [Test]
-         public void assertThatRecruteurIsAvailableWhenNoCreneau()
+         public void AssertThatRecruteurIsAvailableWhenNoCreneau()
         {
             Personne recruteurPersonne = new Personne("Antoine", "Sauvignet");
             string[] recruteurCompetence = {".Net", "js", "C"};
@@ -95,13 +94,13 @@ namespace Tests
             Recruteur recruteur = new Recruteur(recruteurPersonne, recruteurProfil);
 
             DateTime date = DateTime.Now;
-            Creneau Creneau = new Creneau(date, 10);
+            Creneau creneau = new Creneau(date, 10);
 
-            Assert.True(recruteur.EstDisponible(Creneau));
+            Assert.True(recruteur.EstDisponible(creneau));
         }
          
          [Test]
-         public void assertThatRecruteurHasCrenauxAfterAddedOne()
+         public void AssertThatRecruteurHasCrenauxAfterAddedOne()
         {
             Personne recruteurPersonne = new Personne("Antoine", "Sauvignet");
             string[] recruteurCompetence = {".Net", "js", "C"};
@@ -109,14 +108,14 @@ namespace Tests
             Recruteur recruteur = new Recruteur(recruteurPersonne, recruteurProfil);
 
             DateTime date = DateTime.Now;
-            Creneau Creneau = new Creneau(date, 10);
-            bool ajoutCreneau = recruteur.AjouterIndisponibilite(Creneau);
+            Creneau creneau = new Creneau(date, 10);
+            bool ajoutCreneau = recruteur.AjouterIndisponibilite(creneau);
 
             Assert.True(ajoutCreneau);
         }
 
          [Test]
-        public void assertThatRecruteurCantHaveTwiceSameCreneau()
+        public void AssertThatRecruteurCantHaveTwiceSameCreneau()
         {
             Personne recruteurPersonne = new Personne("Antoine", "Sauvignet");
             string[] recruteurCompetence = {".Net", "js", "C"};
@@ -124,16 +123,16 @@ namespace Tests
             Recruteur recruteur = new Recruteur(recruteurPersonne, recruteurProfil);
 
             DateTime date = DateTime.Now;
-            Creneau Creneau = new Creneau(date, 10);
+            Creneau creneau = new Creneau(date, 10);
             
-            recruteur.AjouterIndisponibilite(Creneau);
-            bool ajoutCreneau = recruteur.AjouterIndisponibilite(Creneau);
+            recruteur.AjouterIndisponibilite(creneau);
+            bool ajoutCreneau = recruteur.AjouterIndisponibilite(creneau);
 
             Assert.False(ajoutCreneau);
         }
 
         [Test]
-        public void assertThatRecruteurIsNotAvailableIfTwiceSameCreneau()
+        public void AssertThatRecruteurIsNotAvailableIfTwiceSameCreneau()
         {
             Personne recruteurPersonne = new Personne("Antoine", "Sauvignet");
             string[] recruteurCompetence = {".Net", "js", "C"};
@@ -141,63 +140,63 @@ namespace Tests
             Recruteur recruteur = new Recruteur(recruteurPersonne, recruteurProfil);
 
             DateTime date = DateTime.Now;
-            Creneau Creneau = new Creneau(date, 10);
+            Creneau creneau = new Creneau(date, 10);
             
-            recruteur.AjouterIndisponibilite(Creneau);
+            recruteur.AjouterIndisponibilite(creneau);
 
-            Assert.False(recruteur.EstDisponible(Creneau));
+            Assert.False(recruteur.EstDisponible(creneau));
         }
 
          [Test]
-         public void assertThatSalleIsAvailableWhenNoCreneau()
+         public void AssertThatSalleIsAvailableWhenNoCreneau()
         {
-            Salle Salle = new Salle("A07", 0);
+            Salle salle = new Salle("A07", 0);
             DateTime date = DateTime.Now;
-            Creneau Creneau = new Creneau(date, 10);
+            Creneau creneau = new Creneau(date, 10);
 
-            Assert.True(Salle.EstDisponible(Creneau));
+            Assert.True(salle.EstDisponible(creneau));
         }
 
          [Test]
-         public void assertThatSalleHasCrenauxAfterAddedOne()
+         public void AssertThatSalleHasCrenauxAfterAddedOne()
         {
-            Salle Salle = new Salle("A07", 0);
+            Salle salle = new Salle("A07", 0);
             DateTime date = DateTime.Now;
-            Creneau Creneau = new Creneau(date, 10);
+            Creneau creneau = new Creneau(date, 10);
 
-            Assert.True(Salle.EstDisponible(Creneau));
-            bool ajoutCreneau = Salle.AjouterIndisponibilite(Creneau);
+            Assert.True(salle.EstDisponible(creneau));
+            bool ajoutCreneau = salle.AjouterIndisponibilite(creneau);
 
             Assert.True(ajoutCreneau);
         }
 
          [Test]
-        public void assertThatSalleCantHaveTwiceSameCreneau()
+        public void AssertThatSalleCantHaveTwiceSameCreneau()
         {
-            Salle Salle = new Salle("A07", 0);
+            Salle salle = new Salle("A07", 0);
             DateTime date = DateTime.Now;
-            Creneau Creneau = new Creneau(date, 10);
+            Creneau creneau = new Creneau(date, 10);
             
-            Salle.AjouterIndisponibilite(Creneau);
-            bool ajoutCreneau = Salle.AjouterIndisponibilite(Creneau);
+            salle.AjouterIndisponibilite(creneau);
+            bool ajoutCreneau = salle.AjouterIndisponibilite(creneau);
 
             Assert.False(ajoutCreneau);
         }
 
         [Test]
-        public void assertThatSalleIsNotAvailableIfTwiceSameCreneau()
+        public void AssertThatSalleIsNotAvailableIfTwiceSameCreneau()
         {
-            Salle Salle = new Salle("A07", 0);
+            Salle salle = new Salle("A07", 0);
 
             DateTime date = DateTime.Now;
-            Creneau Creneau = new Creneau(date, 10);
+            Creneau creneau = new Creneau(date, 10);
 
-            Salle.AjouterIndisponibilite(Creneau);
-            bool ajoutCreneau = Salle.AjouterIndisponibilite(Creneau);
+            salle.AjouterIndisponibilite(creneau);
+            bool ajoutCreneau = salle.AjouterIndisponibilite(creneau);
             
-            Salle.AjouterIndisponibilite(Creneau);            
+            salle.AjouterIndisponibilite(creneau);            
 
-            Assert.False(Salle.EstDisponible(Creneau));
+            Assert.False(salle.EstDisponible(creneau));
         }
 
 

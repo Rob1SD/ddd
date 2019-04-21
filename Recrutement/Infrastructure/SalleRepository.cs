@@ -1,22 +1,23 @@
 using System.Collections.Generic;
 using System.Linq;
+using Recrutement.Models;
 
-namespace ddd
+namespace Recrutement.Infrastructure
 {
     public class SalleRepository : IRepository<Salle>
     {
-        public IEnumerable<Salle> Collection => collection;
-        private List<Salle> collection;
+        public IEnumerable<Salle> Collection => _collection;
+        private List<Salle> _collection;
         public SalleRepository() {
-            collection = new List<Salle>();
+            _collection = new List<Salle>();
         }
         public bool Ajouter(Salle obj)
         {
-            if (collection.Any(rec => rec.Equals(obj))) return false;
-            collection.Add(obj);
+            if (_collection.Any(rec => rec.Equals(obj))) return false;
+            _collection.Add(obj);
             return true;
         }
 
-        public bool Supprimer(Salle obj) => collection.Remove(obj);
+        public bool Supprimer(Salle obj) => _collection.Remove(obj);
     }
 }
