@@ -83,7 +83,7 @@ namespace RecrutementTest
                                                                               && x.Personne.Nom == "BANGOURA");
             jeanBangoura.AjouterIndisponibilite(crenindispo);
 
-            Assert.Throws<NullReferenceException>(() =>
+            Assert.Throws<Recrutement.Infrastructure.RecruteurNotFoundException>(() =>
             {
                 var planifierEntretien = new PlanifierEntretien(this._salleRepository,
                     this._recruteurRepository, candidat, new Creneau(dateTime, duree));
